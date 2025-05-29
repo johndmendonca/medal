@@ -1,0 +1,14 @@
+name: medal
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - pip=24.2
+  - python=3.10.15
+  - pip:
+    - azure-ai-inference==1.0.0b6
+    - azure-core==1.32.0
+    - datasets==3.0.1
+    - openai==1.66.3
+    - vllm==0.9.0
+    - xgrammar==0.1.17
