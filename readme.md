@@ -1,4 +1,4 @@
-# MEDAL: MEDAL: A Framework for Benchmarking LLMs as Multilingual Open-Domain Chatbots and Dialogue Evaluators
+# MEDAL: A Framework for Benchmarking LLMs as Multilingual Open-Domain Chatbots and Dialogue Evaluators
 
 MEDAL is a framework for generating and evaluating multilingual open-domain chatbots and their evaluators. This framework supports various language models and provides a structured approach to creating conversational datasets.
 
@@ -6,7 +6,19 @@ MEDAL is a framework for generating and evaluating multilingual open-domain chat
 
 For a detailed understanding of the framework, methodology, and results, please refer to our paper:
 
-[Placeholder: Link to arXiv paper once available]
+[MEDAL: A Framework for Benchmarking LLMs as Multilingual Open-Domain Chatbots and Dialogue Evaluators](https://arxiv.org/abs/2505.22777)
+
+```bibtex
+@misc{mendonça2025medalframeworkbenchmarkingllms,
+      title={MEDAL: A Framework for Benchmarking LLMs as Multilingual Open-Domain Chatbots and Dialogue Evaluators}, 
+      author={John Mendonça and Alon Lavie and Isabel Trancoso},
+      year={2025},
+      eprint={2505.22777},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2505.22777}, 
+}
+```
 
 ## Data
 
