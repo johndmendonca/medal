@@ -1,5 +1,5 @@
-from unsloth import FastLanguageModel
 from trl import SFTTrainer,SFTConfig
+from peft import LoraConfig
 from transformers import HfArgumentParser
 from datasets import load_dataset
 
@@ -22,45 +22,31 @@ def arguments():
 
 def main(args):
     
-    sft_args = HfArgumentParser(SFTConfig).parse_yaml_file(args.args_file)
+    sft_args,  = HfArgumentParser(SFTConfig).parse_yaml_file(args.args_file)
     
     def preprocess_function(example):
-        if example["role"] == "assistant":
             return {
                 "prompt": example["context"],
                 "completion": [example["response"]],
             }
-        return None
 
-    dataset = dataset.map(preprocess_function, remove_columns=["source", "scene", "lang", "model","role"])
-    
-    
-    model, tokenizer = FastLanguageModel.from_pretrained(
-        model_name=args.model,
-    )
-    model = FastLanguageModel.get_peft_model(
-        model,
-        r=16,
-        target_modules=[
-            "q_proj",
-            "k_proj",
-            "v_proj",
-            "o_proj",
-            "gate_proj",
-            "up_proj",
-            "down_proj",
-        ],
-        lora_alpha=16,
-        lora_dropout=0,  # Dropout = 0 is currently optimized
-        bias="none",  # Bias = "none" is currently optimized
-        use_gradient_checkpointing=True,
-        random_state=3407,
-    )
+    dataset = load_dataset(args.dataset)
+    dataset = dataset.filter(lambda x: x["role"] == "assistant")
+    dataset = dataset.map(preprocess_function, remove_columns=["context","response","source", "scene", "lang", "model","role"])
 
+    print(next(iter(dataset["train"])))
+    
     trainer = SFTTrainer(
-        model=model,
+        model=args.model,
         train_dataset=dataset["train"],
         eval_dataset=dataset["validation"],
+        peft_config=LoraConfig(
+            r = 16,
+            target_modules = ["q_proj", "k_proj", "v_proj", "o_proj","gate_proj", "up_proj", "down_proj",],
+            lora_alpha = 16,
+            lora_dropout = 0, # Supports any, but = 0 is optimized
+            bias = "none",    # Supports any, but = "none" is optimized
+        ),
         args=sft_args
     )
     trainer.train()
