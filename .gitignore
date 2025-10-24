@@ -154,3 +154,6 @@ completed_batches/
 batches_to_process/
 bak/
 *.lock
+
+unsloth_compiled_cache/
+unsloth_model_cache/

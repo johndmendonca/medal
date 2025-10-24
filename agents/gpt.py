@@ -70,8 +70,8 @@ def main(args):
                                            save_filepath=f"{path}/{input_file_name}.jsonl",
                                            request_url=url,
                                            api_key=args.api_key,
-                                           max_requests_per_minute=float(2_000 * 0.5),
-                                           max_tokens_per_minute=float(200_000 * 0.5),
+                                           max_requests_per_minute=float(20_000 * 0.5),
+                                           max_tokens_per_minute=float(2_000_000 * 0.5),
                                            token_encoding_name="cl100k_base",
                                            max_attempts=5,
                                            logging_level=int(logging.ERROR))
