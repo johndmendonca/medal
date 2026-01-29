@@ -1,0 +1,78 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "medal"
+version = "0.1.0"
+description = "A Framework for Benchmarking LLMs as Multilingual Open-Domain Chatbots and Dialogue Evaluators"
+readme = "readme.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "John Mendonça", email = ""},
+]
+keywords = ["llm", "dialogue", "evaluation", "multilingual", "chatbot"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+    "orjson>=3.9.0",
+    "datasets>=3.0.1",
+    "tqdm>=4.66.0",
+    "numpy>=1.24.0",
+    "openai>=1.66.3",
+    "azure-ai-inference>=1.0.0b6",
+    "azure-core>=1.32.0",
+    "vllm>=0.9.0",
+    "json5>=0.9.0",
+    "pyyaml>=6.0.0",
+    "tiktoken>=0.5.0",
+    "aiohttp>=3.9.0",
+    "click>=8.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+medal = "medal.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["medal*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+packages = ["medal"]
+strict_optional = true
+show_error_codes = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]

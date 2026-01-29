@@ -1,0 +1,32 @@
+# Example configuration file for MEDAL framework
+# Copy this to config.yaml and modify as needed
+
+paths:
+  batches_to_process: "batches_to_process"
+  completed_batches: "completed_batches"
+  submitted_batches: "submitted_batches"
+  dialogues: "dialogues"
+  data: "data"
+
+model:
+  temperature: 0.9
+  top_p: 0.95
+  frequency_penalty: 1.0
+  presence_penalty: 0.6
+  max_tokens: 512
+
+api:
+  provider: "openai"  # Options: openai, azure, deepseek, openrouter, google
+  # api_key will be read from environment variables:
+  # OPENAI_API_KEY, GEMENI_KEY, OPENROUTER_KEY
+  max_requests_per_minute: 1000.0
+  max_tokens_per_minute: 100000.0
+  max_attempts: 5
+  token_encoding_name: "cl100k_base"
+
+vllm:
+  tensor_parallel_size: 4
+  pipeline_parallel_size: 1
+  gpu_memory_utilization: 0.9
+  max_model_len: 4096
+  trust_remote_code: true

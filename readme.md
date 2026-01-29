@@ -59,9 +59,54 @@ export OPENROUTER_KEY="your_openrouter_api_key" # Used for some evaluation scrip
     conda env create -f environment.yml
     ```
 
+## Refactored Code Structure
+
+The codebase has been refactored for better readability, maintainability, and job-readiness. Key improvements include:
+
+- **Configuration Management**: YAML-based configuration files instead of hardcoded values
+- **Modular Structure**: Clean separation of concerns with utility modules
+- **Type Hints**: Better type safety throughout the codebase
+- **CLI Interface**: Unified command-line interface using Click
+- **Better Documentation**: Comprehensive docstrings and code comments
+
+See [REFACTORING.md](REFACTORING.md) for detailed information about the refactoring.
+
+### Quick Start with Refactored Code
+
+```python
+from medal.tasks.dialogue_generation import DialogueGenerator
+from medal.config import Config
+
+# Load configuration
+config = Config.from_yaml('config.yaml')
+
+# Create generator
+generator = DialogueGenerator(
+    context="path/to/dialogue/dataset",
+    lang="english",
+    model="meta-llama/Llama-3.3-70B-Instruct",
+    role="user",
+    turn=1,
+    run_id="vanilla",
+    config=config
+)
+
+# Generate dialogue turns
+generator.generate()
+```
+
+Or use the CLI:
+```bash
+medal dialogue path/to/context --lang english --model meta-llama/Llama-3.3-70B-Instruct \
+    --role user --turn 1 --type generate
+```
+
 ## Running the Framework
 
-The framework is primarily controlled via shell scripts.
+The framework can be used via:
+1. **Shell scripts** (original approach, still supported)
+2. **Python API** (new refactored approach)
+3. **CLI commands** (new unified interface)
 
 ### Generating Dialogues
 
